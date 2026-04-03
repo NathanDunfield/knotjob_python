@@ -4,7 +4,7 @@ KnotJob Python
 A small Python interface to Dirk Schütz's `KnotJob
 <https://www.maths.dur.ac.uk/users/dirk.schuetz/knotjob.html>`_.
 
-Originally written for the experiments included in `[DG]
+Originally written for the experiments in `[DG]
 <https://arxiv.org/abs/2512.21825>`_ and `[DLS]
 <https://arxiv.org/abs/2312.09114>`_, it doesn't wrap all of KnotJob's
 features, but I welcome pull requests that add more.
@@ -90,4 +90,12 @@ You can check which version of KnotJob is being used as follows::
 
   >>> import knotjob
   >>> knotjob.knotjob_version
-  'aquamarine (2025)'
+  'chartreuse (2025)'
+
+
+Credits
+=======
+
+Dirk Schütz is the sole developer of KnotJob.  Nathan Dunfield only
+contributed the Python wrapper/interface, which is less than 300 lines
+of code.
