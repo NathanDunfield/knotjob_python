@@ -81,3 +81,13 @@ pipes. You can control which invariants are computed more directly::
    ('Kh', 'odd', 'Z'): {0: {(2, 0): 1, (6, 2): 1, (8, 3): 1}}}
 
 For more, see the docstrings the `core.py <https://github.com/NathanDunfield/knotjob_python/blob/main/python_src/core.py>`_ file.
+
+
+Version
+=======
+
+You can check which version of KnotJob is being used as follows::
+
+  >>> import knotjob
+  >>> knotjob.knotjob_version
+  'aquamarine (2025)'

@@ -11,7 +11,7 @@ authors = [
 ]
 description = "Python interface to Dirk Schütz's KnotJob"
 readme = "README.rst"
-license = "GPL-3.0"
+license = "GPL-3.0-or-later"
 keywords = ["knots", "links", "Khovanov homology"]
 classifiers = [
   "Development Status :: 5 - Production/Stable",	
