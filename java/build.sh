@@ -11,6 +11,7 @@
 # be a symlink into it.
 
 set -e
+cd "$(dirname "$0")"
 mkdir -p build
 
 # Can use below to force Java version, if needed.
@@ -36,3 +37,5 @@ java -jar KnotJob.jar -kr0 -s0 -sgr -sq2e -sq2o0 -sq2o1 -ks0 < test_knots.txt
 
 echo "Copying to python_src..."
 cp KnotJob.jar ../python_src
+
+echo "Build complete!"

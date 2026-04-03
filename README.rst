@@ -7,7 +7,7 @@ A small Python interface to Dirk Schütz's `KnotJob
 Originally written for the experiments included in `[DG]
 <https://arxiv.org/abs/2512.21825>`_ and `[DLS]
 <https://arxiv.org/abs/2312.09114>`_, it doesn't wrap all of KnotJob's
-features, but I welcome pull requests that add such.
+features, but I welcome pull requests that add more.
 
 
 Installation
@@ -22,28 +22,52 @@ and then, as per the install instructions, making::
 
   /Library/Java/JavaVirtualMachines/openjdk.jdk
 
-be a symlink into the cellar.
+be a symlink into the brew cellar.
 
-Now download the ``knotjob_python`` source code.  First, in the java
-subdirectory, do::
+Now download the ``knotjob_python`` source code. In the resulting
+directory do::
 
-  ./build.sh
+  java/build.sh
 
-Then, in this directory, do::
+You should see something like::
 
-  sage -pip install .
+  Using Java: javac 25.0.2
+  Compiling...
+  Building jar file...
+  Testing...
+  Knot
+  S-Invariant mod 0 : 2
+  [...]
+  Reduced integral sl_3 Homology : t^-8 q^30 + t^-7 q^26 + t^-7 q^28 + t^-6 q^24 + t^-5 q^22 + t^-5 q^24 + t^-4 q^18 + t^-4 q^20 + t^-3 q^20 + t^-2 q^16 + q^12
+  Copying to python_src...
+  Build complete!
 
-Here, a copy of KnotJob is embedded as part of the Python
-module. Finally, test with::
+Then do::
 
-  sage -python -m knotjob.test
+  python -m pip install .
+  python -m knotjob.test
 
-You should see "TestResults(failed=0, attempted=39)" or similar.  The
-main function can take a raw PD code, but typically one uses SnapPy
-links as input::
+You should see ``TestResults(failed=0, attempted=53)`` or similar.  If
+you are using SageMath, replace ``python`` with ``sage -python`` in
+the above.
+
+
+Usage
+=====
+
+The main function can take a raw PD code, but typically one uses
+SnapPy links as input::
 
   >>> import knotjob, snappy
   >>> L = snappy.Link('K5a1')
   >>> knotjob.s_invariants(L)
   {'s': {0: 2, 2: 2, 3: 2}, 'sq^1': [2, 2, 2, 2], 'sq^1_odd': [2, 2, 2, 2]}
+
+For more, see the docstrings the `core.py <https://github.com/NathanDunfield/knotjob_python/blob/main/python_src/core.py>`_ file.
+
+
+Technical Details
+=================
+
+KnotJob runs in subprocess and Python communicates with it via pipes.
 
