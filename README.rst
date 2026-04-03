@@ -63,11 +63,21 @@ SnapPy links as input::
   >>> knotjob.s_invariants(L)
   {'s': {0: 2, 2: 2, 3: 2}, 'sq^1': [2, 2, 2, 2], 'sq^1_odd': [2, 2, 2, 2]}
 
+Here's the invariant from Proposition 6.28 of `[DLS]
+<https://arxiv.org/abs/2312.09114>`_,
+
+  >>> knotjob.complete_ls(L)
+  {'complete_ls': (2, 2)}
+
+KnotJob runs in subprocess and Python communicates with it via
+pipes. You can control which invariants are computed more directly::
+
+  >>> kj = knotjob.KnotJob()
+  >>> pd = [(6,4,1,3), (2,6,3,5), (4,2,5,1)]
+  >>> invs = [('Kh', 'odd', 'Z'), ('Kh', 'reduced', 'Q'), ('s', 'F_13')]
+  >>> kj.compute_one_link(pd, invs)
+  {('s', 'F_13'): 2,
+   ('Kh', 'reduced', 'Q'): {(2, 0): 1, (6, 2): 1, (8, 3): 1},
+   ('Kh', 'odd', 'Z'): {0: {(2, 0): 1, (6, 2): 1, (8, 3): 1}}}
+
 For more, see the docstrings the `core.py <https://github.com/NathanDunfield/knotjob_python/blob/main/python_src/core.py>`_ file.
-
-
-Technical Details
-=================
-
-KnotJob runs in subprocess and Python communicates with it via pipes.
-
