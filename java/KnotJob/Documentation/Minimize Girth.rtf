@@ -1,0 +1,29 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf610
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue255;\red0\green0\blue0;\red110\green5\blue2;
+\red18\green145\blue206;\red251\green2\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c1680\c19835\c100000;\cssrgb\c0\c0\c0;\cssrgb\c51239\c6511\c0;
+\cssrgb\c0\c63852\c84489;\cssrgb\c100000\c25279\c100000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\qc\partightenfactor0
+
+\fs28 \cf0 \ul \ulc0 Minimize Girth\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\fs24 \cf0 \ulnone \
+Given a link diagram, and an order in which the crossings are listed, the girth vector lists in its i-th entry the number of endpoints the tangle of the first i crossings has.  In the link information you can find something like \cf2 Girth : 14/598\cf3 . The 14 is the largest entry in the girth vector, while the 598 is the sum of all the entries in the girth vector.\
+\
+The general rule of thumb is that you want these two numbers as small as possible to perform the kind of calculations that KnotJob does. When entering a DT code, or a Gauss code, the resulting girth can be atrocious, and if you have a 60 crossing knot with girth 20, it\'92s unlikely the calculation will not lead to memory problems. At the same time, a 60 crossing knot probably has a diagram with much smaller girth, but you don\'92t want to find that by hand.\
+\
+So you can let the 
+\i Girth Minimizer
+\i0  find a diagram with smaller girth. Essentially it runs through lots of combinations of orderings of the crossings, checking the girth of each. For a 60 crossing knot, this will never finish, so the Girth Minimizer has the option to \cf4 Abort\cf3  the minimizing. It will then give you the best diagram it has found so far, provided it is better than what you started with. If you \cf4 Cancel \cf3 instead, nothing is saved. There is the option to \cf4 Skip\cf3  something. Basically, the algorithm starts with the current first crossing and goes through all possibilities, then repeats starting from the second crossing. With \cf4 Skip\cf3 , you can start with a new crossing immediately. This can sometimes lead to an improvement.\
+\
+There are two modes for the Girth Minimizer, \cf5 total\cf3  or not. You can change this in the \cf6 Options\cf3  menu. When
+\i  total 
+\i0 is selected, it will not just try to improve the first number (the 14 in the above example), but also the second number (the 598). This is useful if you don\'92t think that there is a better first number. But if you think the first number is too high (say, when it is 20 for a 60 crossing knot), you can minimize without total, and it should find a smaller number faster than with total. You can then run the Minimizer again, with total and starting from the already low number.\
+\
+Minimizing the total girth may not necessarily lead to a better result. For example, if you want to calculate the integral Khovanov cohomology of the (8,9)-torus knot, I recommend to use the non-optimized diagram coming from the braid word. However, for the mod 2 cohomology, the girth minimized version is faster. }

@@ -1,0 +1,13 @@
+The KnotJob.jar was created with Java 21; if you use an older version of Java, it is likely not going to work. The code is backward compatible to (I think) Java 11, so you can try to compile the source code from the folder containing the jar file by
+
+ javac knotjob/KnotJob.java
+
+and start the program using
+
+ java knotjob.KnotJob     
+ 
+If you are using Java 8 you need to change various lines in the file Knobster.java, namely as follows:
+Comment out (using //) the following lines : 28, 33, 35-39, 204, 216, 248, 266, 289, 348, 537, 541, 591.
+If you like, you can uncomment the lines : 206, 218, 250, 268, 291, 350, 539,  543, 593.
+Alternatively, you can change the command getMenuShortcutKeyMaskEx() by removing the 'Ex' to get the old Java 8 version. 
+After that compiling the source code should work. 
