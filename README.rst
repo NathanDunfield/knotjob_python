@@ -96,6 +96,7 @@ You can check which version of KnotJob is being used as follows::
 Credits
 =======
 
-Dirk Schütz is the sole developer of KnotJob.  Nathan Dunfield only
-contributed the Python wrapper/interface, which is less than 300 lines
-of code.
+Dirk Schütz is the sole developer of KnotJob and the Jave code in
+``Java/KnotJob`` is an unmodified copy of the KnobJob source.  Nathan
+Dunfield only contributed the Python wrapper/interface, which is less
+than 300 lines of code.
