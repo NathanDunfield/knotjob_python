@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2021-23 Dirk Schuetz <dirk.schuetz@durham.ac.uk>
+Copyright (C) 2021-25 Dirk Schuetz <dirk.schuetz@durham.ac.uk>
 
 This file is part of KnotJob.
 
@@ -45,15 +45,15 @@ public class HalfPolynomial extends Polynomial {
         if ("".equals(reducedInfo)) return;
         int firstComma = reducedInfo.indexOf(",");
         int q = Integer.parseInt(reducedInfo.substring(0, firstComma));
-        int val;
+        BigInteger val;
         reducedInfo = reducedInfo.substring(firstComma+1);
         if (reducedInfo.contains("F")) reducedInfo = reducedInfo.replace("F", "");
         if (reducedInfo.contains("N")) reducedInfo = reducedInfo.replace("N", "");
         do {
             firstComma = reducedInfo.indexOf(",");
-            if (firstComma >= 0) val = Integer.parseInt(reducedInfo.substring(0, firstComma));
-            else val = Integer.parseInt(reducedInfo);
-            if (val != 0) coefficients.add(new HalfCoefficient(new int[] {q}, BigInteger.valueOf(val)));
+            if (firstComma >= 0) val = new BigInteger(reducedInfo.substring(0, firstComma));
+            else val = new BigInteger(reducedInfo);
+            if (!val.equals(BigInteger.ZERO)) coefficients.add(new HalfCoefficient(new int[] {q}, val));
             q = q + 2;
             reducedInfo = reducedInfo.substring(firstComma+1);
         } while (firstComma >= 0);

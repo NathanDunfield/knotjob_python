@@ -199,7 +199,7 @@ public class KnotJobCommand {
     private boolean acceptableFileName(String command) {
         if (command.endsWith(".txt")) return true;
         if (command.endsWith(".dtc")) return true;
-        if (command.endsWith(".adt")) return true;
+        if (command.endsWith(".adc")) return true;
         if (command.endsWith(".brd")) return true;
         if (command.endsWith(".kts")) return true;
         return command.endsWith(".kjb");

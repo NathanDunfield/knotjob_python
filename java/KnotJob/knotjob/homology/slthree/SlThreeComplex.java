@@ -469,7 +469,7 @@ public class SlThreeComplex<R extends Ring<R>> extends ChainComplex<R> {
         return foam.isProduct();
     }
     
-    private void deloopGens(int i, ArrayList<ArrayList<Generator<R>>> tgens, 
+    protected void deloopGens(int i, ArrayList<ArrayList<Generator<R>>> tgens, 
             ArrayList<ArrayList<Generator<R>>> dgens, SlTCache dCache) {
         for (int l = 0; l < tgens.get(i).size(); l++) {
             if (abInf.isAborted()) return;
@@ -503,7 +503,7 @@ public class SlThreeComplex<R extends Ring<R>> extends ChainComplex<R> {
             tGen.getWeb().setNextWeb(knownWebs.get(1), 1);
     }
     
-    private void simplifyArrowsFrom(SlTGenerator<R> bGen) {// here we check whether any of the foams can be simplified.
+    protected void simplifyArrowsFrom(SlTGenerator<R> bGen) {// here we check whether any of the foams can be simplified.
         int i = bGen.getBotArrows().size()-1;
         while (i >= 0) {
             if (abInf.isAborted()) return;
@@ -537,7 +537,7 @@ public class SlThreeComplex<R extends Ring<R>> extends ChainComplex<R> {
         arr.getBotGenerator().getBotArrows().remove(arr);
     }
     
-    private void getComposedArrows(SlTGenerator<R> bGen, SlTGenerator<R> nbGen) {
+    protected void getComposedArrows(SlTGenerator<R> bGen, SlTGenerator<R> nbGen) {
         SlTArrow<R> fArr = (SlTArrow<R>) nbGen.getBotArrows().get(0);
         for (int i = 0; i < bGen.getBotArrows().size(); i++) {
             SlTArrow<R> arr = (SlTArrow<R>) bGen.getBotArrows().get(i);
@@ -553,7 +553,7 @@ public class SlThreeComplex<R extends Ring<R>> extends ChainComplex<R> {
         nbGen.getBotArrows().remove(0); // remove the pointer, no longer needed
     }
     
-    private SlTArrow<R> getDeloopedArrow(SlTGenerator<R> tGen, SlTGenerator<R> ntGen,
+    protected SlTArrow<R> getDeloopedArrow(SlTGenerator<R> tGen, SlTGenerator<R> ntGen,
             SlTGenerator<R> nGen, Foam fm) {
         ArrayList<SlTArrow<R>> fArrs = new ArrayList<SlTArrow<R>>();
         ArrayList<SlTArrow<R>> bArrs = new ArrayList<SlTArrow<R>>();
@@ -600,7 +600,7 @@ public class SlThreeComplex<R extends Ring<R>> extends ChainComplex<R> {
         return null;
     }
     
-    private Foam getTheWeb(Web web, ArrayList<Web> knownWebs, SlTCache dCache) {
+    protected Foam getTheWeb(Web web, ArrayList<Web> knownWebs, SlTCache dCache) {
         for (Web kWeb : knownWebs) {
             Foam foam = kWeb.isomorphismTo(web);
             if (foam != null) return foam;
@@ -620,7 +620,7 @@ public class SlThreeComplex<R extends Ring<R>> extends ChainComplex<R> {
         }
     }
     
-    private void simplifyGenerator(SlTGenerator<R> teGen) {
+    protected void simplifyGenerator(SlTGenerator<R> teGen) {
         Web web = teGen.getWeb();
         Edge circle = web.getCircle();
         if (circle == null) {
@@ -1084,7 +1084,7 @@ public class SlThreeComplex<R extends Ring<R>> extends ChainComplex<R> {
         if (i < generators.size()-1) generators.set(i+1, null); // throwing away old objects of hom degree i+1
     }
     
-    private void addArrow(SlTArrow<R> arr, SlTGenerator<R> nGen, SlTGenerator<R> tGen, 
+    protected void addArrow(SlTArrow<R> arr, SlTGenerator<R> nGen, SlTGenerator<R> tGen, 
             Web oldWeb, int f, SlTCache tCache) {
         SlTArrow<R> nArr = new SlTArrow<R>(nGen, tGen);
         nGen.addBotArrow(nArr);
@@ -1140,6 +1140,13 @@ public class SlThreeComplex<R extends Ring<R>> extends ChainComplex<R> {
         SlThreeComplex<R> finComplex = new SlThreeComplex<R>(unit, frame, abInf, 
                 sType, lepts.get(1), lepts.get(0));
         this.modifyComplex(finComplex, gInfo, hd);
+    }
+    
+    public int lowestHom() {
+        for (ArrayList<Generator<R>> gens : generators) {
+            if (!gens.isEmpty()) return gens.get(0).hdeg();
+        }
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

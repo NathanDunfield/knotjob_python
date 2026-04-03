@@ -121,6 +121,7 @@ public class InfoDialog extends JDialog {
                                            new JLabel("Davide Gurnari", SwingConstants.CENTER),
                                            new JLabel("Charles Livingston", SwingConstants.CENTER),
                                            new JLabel("Allison Moore", SwingConstants.CENTER),
+                                           new JLabel("Ludovico Morellato", SwingConstants.CENTER),
                                            new JLabel("Qiuyu Ren", SwingConstants.CENTER)
                                           };
         thanksPanel.setLayout(new GridLayout(thxLabels.length, 1));

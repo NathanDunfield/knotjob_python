@@ -72,7 +72,7 @@ public class EvenArrow<R extends Ring<R>> extends Arrow<R> {
         else cobordisms.get(0).addValue(ad);
     }
     
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return cobordisms.isEmpty();
     }
     

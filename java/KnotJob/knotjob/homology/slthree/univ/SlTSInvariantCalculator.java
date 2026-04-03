@@ -56,7 +56,7 @@ public class SlTSInvariantCalculator  extends Calculator {
 
     @Override
     protected boolean calculationRequired(LinkData theLink) {
-        if (theLink.chosenLink().components()>1) return false;
+        //if (theLink.chosenLink().components()>1) return false;
         int[][] sinvs = theLink.sSlTInvariants(red);
         boolean found = false;
         int i = 0;
@@ -69,6 +69,27 @@ public class SlTSInvariantCalculator  extends Calculator {
 
     @Override
     protected void performCalculation(LinkData theLink) {
+        if (/*field <= 5 ||*/ theLink.chosenLink().components()-theLink.chosenLink().unComponents() > 1) 
+            performLinkCalculation(theLink);
+        else performKnotCalculation(theLink);
+    }
+
+    private void performLinkCalculation(LinkData theLink) {
+        if (field > 1) {
+            LinkSlTSInvariant<ModN> sInv = new LinkSlTSInvariant<ModN>(theLink, new ModN(1, field), 
+                    frame, options, field, red);
+            sInv.calculate();
+            if (!abInf.isAborted()) theLink.setSlTSInvariant(field, sInv.getSInvariant(), red);
+        }
+        else {
+            LinkSlTSInvariant<BigRat> sInv = new LinkSlTSInvariant<BigRat>(theLink, 
+                    new BigRat(BigInteger.ONE), frame, options, field, red);
+            sInv.calculate();
+            if (!abInf.isAborted()) theLink.setSlTSInvariant(field, sInv.getSInvariant(), red);
+        }
+    }
+    
+    private void performKnotCalculation(LinkData theLink) {
         if (field > 1) {
             SlTSInvariant<ModN> sInv = new SlTSInvariant<ModN>(theLink, new ModN(1, field), 
                     frame, options, field, red);

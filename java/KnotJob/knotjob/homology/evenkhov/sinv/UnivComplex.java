@@ -117,7 +117,8 @@ public class UnivComplex<R extends Ring<R>> extends EvenComplex<R> {
         generators = dobjs; // will need to be dobjs later
     }
 
-    private void deloopObjects(int i, ArrayList<ArrayList<Generator<R>>> tobjs, 
+    @Override
+    protected void deloopObjects(int i, ArrayList<ArrayList<Generator<R>>> tobjs, 
             ArrayList<ArrayList<Generator<R>>> dobjs, EvenCache tCache, EvenCache dCache, 
             ArrayList<Integer> ddigTrans) {
         ArrayList<Diagram> tDigs = tCache.getDiagrams();

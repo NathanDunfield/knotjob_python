@@ -329,12 +329,5 @@ public class UnivSlTComplex<R extends Ring<R>> extends SlThreeComplex<R> {
         for (SlTGenerator<R> gen : lastGens) val = val + gen.qdeg();
         return val / lastGens.size();
     }
-
-    public int lowestHom() {
-        for (ArrayList<Generator<R>> gens : generators) {
-            if (!gens.isEmpty()) return gens.get(0).hdeg();
-        }
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
 }

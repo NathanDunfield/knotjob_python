@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2019-21 Dirk Schuetz <dirk.schuetz@durham.ac.uk>
+Copyright (C) 2019-25 Dirk Schuetz <dirk.schuetz@durham.ac.uk>
 
 This file is part of KnotJob.
 
@@ -1154,6 +1154,22 @@ public class Link {
 
     public Link componentChoice(ArrayList<Integer> comps, ArrayList<Boolean> orient) {
         if (comps.isEmpty()) return null;
+        if (comps.size() != orient.size()) return null; // not allowing removing components for the moment.
+        ArrayList<int[]> newOrientation = new ArrayList<int[]>();
+        for (int i = 0; i < orient.size(); i++) {
+            int c = orientation.get(i)[0];
+            int d = orientation.get(i)[1];
+            if (orient.get(i)) {
+                if (crossings[c] % 2 != 0) d = (d+2) % 4;
+                else {
+                    if (d % 2 == 0) d = d + 1;
+                    else d = d -1;
+                }
+            }
+            newOrientation.add(new int[] {c, d});
+        }
+        return new Link(crossings, paths, newOrientation, unlinkComp);
+        /*
         ArrayList<Integer> ncross = new ArrayList<Integer>();
         ArrayList<ArrayList<Integer>> npaths = new ArrayList<ArrayList<Integer>>();
         ArrayList<int[]> norient = new ArrayList<int[]>();
@@ -1217,6 +1233,7 @@ public class Link {
             for (int j = 0; j < 4; j++) nupaths[i][j] = newpaths.get(i).get(j);
         }
         return new Link(ncrossings,nupaths,realOrient,ul).girthMinimize();
+        // */
     }
 
     private int unlinksIn(ArrayList<ArrayList<Integer>> npaths) {

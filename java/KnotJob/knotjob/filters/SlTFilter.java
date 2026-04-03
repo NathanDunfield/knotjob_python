@@ -146,9 +146,9 @@ public class SlTFilter implements Filter {
     }
 
     private boolean checkPages(LinkData link) {
-        int pages = link.bltEPages(wString, typ).size();
+        Integer pages = link.bltEPages(wString, typ).size();
         if (relPages) pages = link.relBltPages(wString, typ);
-        if (pages < lowerBound) return false;
+        if (pages == null || pages < lowerBound) return false;
         if (!bddAbove) return true;
         return (pages <= upperBound);
     }

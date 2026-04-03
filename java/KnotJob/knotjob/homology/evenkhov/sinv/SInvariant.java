@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2019-20 Dirk Schuetz <dirk.schuetz@durham.ac.uk>
+Copyright (C) 2019-25 Dirk Schuetz <dirk.schuetz@durham.ac.uk>
 
 This file is part of KnotJob.
 
@@ -59,7 +59,7 @@ public class SInvariant<R extends Ring<R>> {
     
     public void calculate() {
         if (theLink.crossingNumber() == 0) {
-            sinv = 0;
+            sinv = 1 - theLink.unComponents();
             return;
         }
         int[] wrt = theLink.crossingSigns();
@@ -80,7 +80,7 @@ public class SInvariant<R extends Ring<R>> {
     
     private void calculateSInvariant(int hstart, int qstart) {
         SInvComplex<R> theComplex = getComplex(hstart,qstart);
-        if (!abInf.isAborted()) sinv = theComplex.barnatize(1);
+        if (!abInf.isAborted()) sinv = theComplex.barnatize(1) - theLink.unComponents();
     }
 
     public int getSInvariant() {

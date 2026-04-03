@@ -96,6 +96,7 @@ public class EvenKhovHomology <R extends Ring<R>> extends HomologyCalculation<R>
                         false, unit,null,null);
                 frame.setLabelRight(String.valueOf(u+1)+"/"+String.valueOf(theLink.crossingLength()), 0, false);
                 theComplex.modifyComplex(nextComplex, 0, girthInfo(u), highDetail);
+                //theComplex.throwAway(-500, 11);
                 u++;
             }
             if (red && !abInf.isAborted()) theComplex = lastComplex(theComplex, u);

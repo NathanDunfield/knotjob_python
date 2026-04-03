@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2020 Dirk Schuetz <dirk.schuetz@durham.ac.uk>
+Copyright (C) 2020-25 Dirk Schuetz <dirk.schuetz@durham.ac.uk>
 
 This file is part of KnotJob.
 
@@ -91,11 +91,11 @@ public class EvenCache extends Cache {
         paths = newPaths;
     }
     
-    void addDiagram(Diagram empty) {
+    public void addDiagram(Diagram empty) {
         diagrams.add(empty);
     }
     
-    ArrayList<Integer> getSurgeries(long surgery, int lastDiag) {
+    public ArrayList<Integer> getSurgeries(long surgery, int lastDiag) {
         ArrayList<Integer> result = new ArrayList<Integer>();
         if (surgery == 0) return result;
         if (surgery == 1) {
@@ -138,7 +138,7 @@ public class EvenCache extends Cache {
         return result;
     }
     
-    long getSurgeries(ArrayList<Integer> surgery) {
+    public long getSurgeries(ArrayList<Integer> surgery) {
         int size = surgery.size();
         if (size <= 1) return size;
         if (size == 2) return (surgery.get(0)*10000)+100;

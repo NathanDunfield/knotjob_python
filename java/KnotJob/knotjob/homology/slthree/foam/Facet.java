@@ -69,6 +69,19 @@ public class Facet {
         for (Edge ed : fac.doBoundaries) doBoundaries.add(ed);
     }
     
+    public int genusCheck(int circles) {
+        if (coBoundaries.isEmpty() && doBoundaries.isEmpty()) return 1;
+        if (coBoundaries.size() >= 3 || doBoundaries.size()>= 3) return 1;
+        int fac = 1;
+        while (euler + circles < 0) {
+            euler = euler + 2;
+            dots = dots + 2;
+            fac = fac * (-3);
+        }
+        if (dots >= 3) return 0; // this assumes we're in sType == 0
+        return fac;
+    }
+    
     public void addEdges(Edge[] fbEdges, Edge[] ftEdges) {
         doBoundaries.addAll(Arrays.asList(fbEdges));
         coBoundaries.addAll(Arrays.asList(ftEdges));

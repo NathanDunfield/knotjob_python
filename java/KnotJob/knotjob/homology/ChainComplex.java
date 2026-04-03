@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2020 Dirk Schuetz <dirk.schuetz@durham.ac.uk>
+Copyright (C) 2020-25 Dirk Schuetz <dirk.schuetz@durham.ac.uk>
 
 This file is part of KnotJob.
 
@@ -129,12 +129,10 @@ public class ChainComplex<R extends Ring<R>> {
                 while (check && k < values.size()) {
                     if (!values.get(k).isZero()) check = false;
                     else k++;
-                    
                 }
                 if (!check) System.out.println(i+" "+(generators.get(i).size()-j)+" "+
                         (generators.get(i+2).size()-k)+" "+values);
                 j++;
-                
             }
             i++;
         }
@@ -505,6 +503,14 @@ public class ChainComplex<R extends Ring<R>> {
                 if (away) generators.remove(i);
             }
             i--;
+        }
+        i = generators.size()-1;
+        while (generators.get(i).isEmpty()) {
+            generators.remove(i);
+            i--;
+        }
+        while (generators.get(0).isEmpty()) {
+            generators.remove(0);
         }
     }
     

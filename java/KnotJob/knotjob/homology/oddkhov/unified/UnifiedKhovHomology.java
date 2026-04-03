@@ -52,7 +52,7 @@ public class UnifiedKhovHomology<R extends Ring<R>> {
     private ArrayList<Homomorphism<R>> phioe;
     private ArrayList<Homomorphism<R>> phieo;
     private ArrayList<Homomorphism<R>> beta;
-        
+    private final String name;    
     
     public UnifiedKhovHomology(LinkData link, long cff, R unt, R x, DialogWrap frm, Options optns) {
         theLink = Reidemeister.freeOfOne(link.chosenLink()).breakUp().girthDiscMinimize();
@@ -66,6 +66,7 @@ public class UnifiedKhovHomology<R extends Ring<R>> {
         endHom = new ArrayList<String>();
         highDetail = options.getGirthInfo() == 2;
         homs = new ArrayList<ArrayList<Homomorphism<R>>>();
+        name = link.name;
     }
     
     public ArrayList<String> getUnifiedHomology() {
@@ -114,10 +115,11 @@ public class UnifiedKhovHomology<R extends Ring<R>> {
             homs.add(thete);
             homs.add(theto);
         }
+        System.out.println(name);
         for (int i = 0; i < homs.size(); i++) {
             ArrayList<Homomorphism<R>> rho = homs.get(i);
             System.out.println("Homomorphism "+i);
-            System.out.println(shortLabel(rho));
+            //System.out.println(shortLabel(rho));
             for (Homomorphism<R> hom : rho) System.out.println(hom);
         }
         //for (Homomorphism<R> hom : phieo) System.out.println(hom.rank());
@@ -138,7 +140,7 @@ public class UnifiedKhovHomology<R extends Ring<R>> {
         for (int i = 0; i < homs.size(); i++) {
             ArrayList<Homomorphism<R>> rho = homs.get(i);
             System.out.println("Homomorphism "+i);
-            System.out.println(shortLabel(rho));
+            //System.out.println(shortLabel(rho));
         }
         //System.out.println("Composition");
         //for (Homomorphism<R> hom : comp) {

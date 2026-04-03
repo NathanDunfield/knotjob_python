@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2019-23 Dirk Schuetz <dirk.schuetz@durham.ac.uk>
+Copyright (C) 2019-25 Dirk Schuetz <dirk.schuetz@durham.ac.uk>
 
 This file is part of KnotJob.
 
@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import knotjob.Calculator;
 import knotjob.Options;
 import knotjob.dialogs.DialogWrap;
+import knotjob.homology.evenkhov.sinv.link.LinkSInvariant;
 import knotjob.links.LinkData;
 import knotjob.rings.BigRat;
 import knotjob.rings.ModN;
@@ -46,7 +47,7 @@ public class SInvariantCalculator extends Calculator {
     
     @Override
     protected boolean calculationRequired(LinkData theLink) {
-        if (theLink.chosenLink().components()>1) return false;
+        //if (theLink.chosenLink().components()-theLink.chosenLink().unComponents()>1) return false;
         int[][] sinvs = theLink.sInvariants();
         boolean found = false;
         int i = 0;
@@ -67,6 +68,29 @@ public class SInvariantCalculator extends Calculator {
 
     @Override
     protected void performCalculation(LinkData theLink) {
+        if (/*field <= 7 ||*/ theLink.chosenLink().components()-theLink.chosenLink().unComponents() > 1) 
+            performLinkCalculation(theLink);
+        else performKnotCalculation(theLink);
+    }
+
+    private void performLinkCalculation(LinkData theLink) {
+        if (field > 1) {
+            int jump = 4;
+            if (field == 2) jump = 2;
+            LinkSInvariant<ModN> sInv = new LinkSInvariant<ModN>(theLink, new ModN(1, field),
+                    frame, options, jump);
+            sInv.calculate();
+            if (!abInf.isAborted()) theLink.setSInvariant(field, sInv.getSInvariant());
+        }
+        else {
+            LinkSInvariant<BigRat> sInv = new LinkSInvariant<BigRat>(theLink, 
+                    new BigRat(BigInteger.ONE), frame, options, 4);
+            sInv.calculate();
+            if (!abInf.isAborted()) theLink.setSInvariant(field, sInv.getSInvariant());
+        }
+    }
+    
+    private void performKnotCalculation(LinkData theLink) {
         if (field > 1) {
             SInvariant<ModN> sInv = new SInvariant<ModN>(theLink, new ModN(1, field), 
                     frame, options);

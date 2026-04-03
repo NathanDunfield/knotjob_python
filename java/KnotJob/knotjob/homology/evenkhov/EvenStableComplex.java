@@ -254,7 +254,8 @@ public class EvenStableComplex<R extends Ring<R>> extends EvenComplex<R> {
         if (i < generators.size()-1) generators.set(i+1, null); // throwing away old objects of hom degree i+1
     }
     
-    private void deloopObjects(int i, ArrayList<ArrayList<Generator<R>>> tobjs, ArrayList<ArrayList<Generator<R>>> dobjs, 
+    @Override
+    protected void deloopObjects(int i, ArrayList<ArrayList<Generator<R>>> tobjs, ArrayList<ArrayList<Generator<R>>> dobjs, 
             EvenCache tCache, EvenCache dCache, ArrayList<Integer> ddigTrans) {
         ArrayList<Diagram> tDigs = tCache.getDiagrams();
         while (tDigs.size() > ddigTrans.size()) ddigTrans.add(-1);

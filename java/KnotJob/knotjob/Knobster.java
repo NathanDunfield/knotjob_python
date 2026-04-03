@@ -484,7 +484,7 @@ public class Knobster extends JFrame {
         calculations.add(alex);
         calculations.addSeparator();
         calculations.add(stable);
-        //calculations.add(special);
+        calculations.add(special);
         menubar.add(calculations);
     }
     
@@ -777,7 +777,10 @@ public class Knobster extends JFrame {
                 ArrayList<LinkData> linkList = allLinks;
                 if (filtered) linkList = filteredLinks;
                 
-                int count = 0;
+                theButtons.calculateUnifiedKhov(linkList);
+                
+                
+                /*int count = 0;
                 for (LinkData data : linkList) {
                     //int rs = Math.abs(data.sInvariant(3));
                     //int rt = Math.abs(data.sInvariant(2));

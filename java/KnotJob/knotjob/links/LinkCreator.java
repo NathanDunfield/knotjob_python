@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2021-24 Dirk Schuetz <dirk.schuetz@durham.ac.uk>
+Copyright (C) 2021-26 Dirk Schuetz <dirk.schuetz@durham.ac.uk>
 
 This file is part of KnotJob.
 
@@ -22,6 +22,7 @@ along with this program. If not, see <http://www.gnu.org.licenses/>.
 package knotjob.links;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JFrame;
 import knotjob.Comparer;
 import knotjob.dialogs.EnterData;
@@ -101,9 +102,59 @@ public class LinkCreator {
             }
             crossings[j] = 1;
         }
-        if (numbersOkay(numbers, size/2) && isPlanar(paths, size/4)) 
-            return new Link(crossings, paths);
+        if (numbersOkay(numbers, size/2) && isPlanar(paths, size/4)) {
+            ArrayList<int[]> ors = getOrientation(paths);
+            return new Link(crossings, paths, ors, 0);
+        }
+            
         return null;
+    }
+    
+    private static ArrayList<int[]> getOrientation(int[][] paths) {
+        ArrayList<int[]> ors = new ArrayList<int[]>();
+        ArrayList<Integer> compBounds = getComponentBounds(paths);
+        if (compBounds.size() <= 1) {
+            if (compBounds.size() == 1) ors.add(new int[] {0, 0});
+            return ors;
+        }
+        else compBounds.add(0, 0);
+        for (int i = 0; i < compBounds.size() - 1; i++) {
+            int test = compBounds.get(i)+1;
+            int top = paths.length * 2;
+            if (i+1 < compBounds.size()) top = compBounds.get(i+1);
+            for (int j = 0; j < paths.length; j++) {
+                if (paths[j][0] >= test && paths[j][0] <= top) {
+                    ors.add(new int[] {j, 0});
+                    break;
+                }
+            }
+        }
+        return ors;
+    }
+    
+    private static ArrayList<Integer> getComponentBounds(int[][] paths) {
+        ArrayList<Integer> bounds = new ArrayList<Integer>();
+        int find = 1;
+        while (true) {
+            int next = nextValue(paths, find);
+            if (next == -1) break;
+            bounds.add(next);
+            find = next+1;
+        }
+        return bounds;
+    }
+    
+    private static int nextValue(int[][] paths, int find) {
+        ArrayList<Integer> pos = new ArrayList<Integer>();
+        for (int i = 0; i < paths.length; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (paths[i][j] == find) pos.add(paths[i][(j+2)%4]);
+            }
+            if (pos.size() == 2) break;
+        }
+        if (pos.isEmpty()) return -1;
+        if (pos.get(0) > pos.get(1)) return pos.get(0);
+        return pos.get(1);
     }
     
     private static boolean numbersOkay(ArrayList<Integer> numbers, int size) {

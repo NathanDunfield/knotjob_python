@@ -29,9 +29,10 @@ import javax.swing.JFrame;
  * 
  * Version history:
  * 
- * This version is aquamarine
+ * This version is chartreuse
  * 
  * Previous version have been
+ * aquamarine
  * gray
  * pink
  * blue
@@ -46,10 +47,11 @@ import javax.swing.JFrame;
 public class KnotJob {
 
     private final Options options;
-    private Knobster knobster;
+    private final Knobster knobster;
     
     public KnotJob() {
         options = new Options();
+        knobster = new Knobster("KnotJob", options);
     }
     
     /**
@@ -66,7 +68,7 @@ public class KnotJob {
     }
     
     private static void commandLine(String[] args) {
-        System.setProperty("java.awt.headless", "true"); 
+        System.setProperty("java.awt.headless", "true");
         KnotJobCommand knotJobCommand = new KnotJobCommand(args);
         knotJobCommand.getStarted();
     }
@@ -78,7 +80,6 @@ public class KnotJob {
     }
     
     private void getStarted() {
-        knobster = new Knobster("KnotJob", options);
         knobster.setSize(1000, 800);
         knobster.setLocationRelativeTo(null);
         knobster.setResizable(false);

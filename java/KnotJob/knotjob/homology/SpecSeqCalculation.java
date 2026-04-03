@@ -25,7 +25,9 @@ import java.util.ArrayList;
 import knotjob.Calculation;
 import knotjob.Options;
 import knotjob.dialogs.DialogWrap;
+import knotjob.homology.slthree.SlThreeComplex;
 import knotjob.homology.slthree.univ.GenSlTComplex;
+import knotjob.homology.slthree.univ.LinkSlTComplex;
 import knotjob.homology.slthree.univ.UnivSlTComplex;
 import knotjob.links.Link;
 import knotjob.rings.Ring;
@@ -70,10 +72,6 @@ public abstract class SpecSeqCalculation<R extends Ring<R>> extends Calculation<
         while (theComplex.containsBoundaries()) {
             theComplex.cancelGenerators(qJump);
             if (abInf.isAborted()) return;
-            /*if (eCounter == 4) {
-                System.out.println("Page "+eCounter);
-                theComplex.output();
-            }// */
             qCohs = theComplex.homologyInfo();
             blocks.add(allInfo.size()+1);
             copyOver(qCohs);
@@ -105,7 +103,7 @@ public abstract class SpecSeqCalculation<R extends Ring<R>> extends Calculation<
         }
     }
     
-    private int missingValue(ArrayList<Integer> nEndpts, int[] lEndpts) {
+    protected int missingValue(ArrayList<Integer> nEndpts, int[] lEndpts) {
         ArrayList<Integer> conv = new ArrayList<Integer>();
         for (int i = 0; i < 4; i++) conv.add(lEndpts[i]);
         for (int i : nEndpts)
@@ -132,8 +130,19 @@ public abstract class SpecSeqCalculation<R extends Ring<R>> extends Calculation<
                 sType, frame, abInf);
         return theComplex;
     }
+    
+    
+    protected LinkSlTComplex<R> crossingComplex(int c, LinkSlTComplex<R> complex,
+            int rep, int sType, boolean replace) {
+        int[] data = getData(c, complex, replace, rep);
+        int[] pts = new int[] {data[0], data[1], data[2], data[3]};
+        int factor = data[4];
+        LinkSlTComplex<R> theComplex = new LinkSlTComplex<R>(pts, c, factor, unit,
+                sType, frame, abInf);
+        return theComplex;
+    }
 
-    private int[] getData(int c, UnivSlTComplex<R> complex, 
+    private int[] getData(int c, SlThreeComplex<R> complex, 
             boolean replace, int rep) {
         int[] pos = positionsOf(c);
         int[] pts = new int[4];

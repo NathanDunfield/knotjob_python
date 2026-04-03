@@ -3,7 +3,7 @@ Python wrapper for Dirk Schütz's KnotJob.
 """
 
 __version__ = '1.2'
-knotjob_version = 'aquamarine (2025)'
+knotjob_version = 'chartreuse (2025)'
 
 from .core import (s_invariants,
                    s_invariants_lite,

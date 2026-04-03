@@ -272,7 +272,7 @@ public class CreateLinkDialog extends JDialog {
         SpinnerNumberModel modelq = new SpinnerNumberModel(5, 2, 60, 1);
         JSpinner spinnerq = new JSpinner(modelq);
         JLabel labep = new JLabel("Enter a p-value :");
-        SpinnerNumberModel modelp = new SpinnerNumberModel(3, 2, 10, 1);
+        SpinnerNumberModel modelp = new SpinnerNumberModel(3, 2, 11, 1);
         JSpinner spinnerp = new JSpinner(modelp);
         JLabel labeq = new JLabel("Enter a q-value :");
         JPanel panep = new JPanel();
@@ -393,12 +393,12 @@ public class CreateLinkDialog extends JDialog {
             mqeven[3] = -sqeven[1];
             mirrorData.setSqOne(mqeven);
         }
-        if (origLink.sinvariant != null) {
+        /*if (origLink.sinvariant != null) { // no longer do this, as we now also have links
             int[][] sinv = origLink.sInvariants();
             for (int[] sinv1 : sinv) {
                 mirrorData.setSInvariant(sinv1[0], -sinv1[1]);
             }
-        }
+        }// */
         if (origLink.khovInfo == null) return mirrorData;
         mirrorData.khovInfo = new ArrayList<String>();
         long[][] data = origLink.getStartInfo(origLink.khovInfo, options.getPrimes());

@@ -13,7 +13,7 @@ To run KnotJob without the GUI, you need to add arguments which are
 either files containing link diagrams, or commands that start with -
 
 Allowed files end in .kjb (for KnotJob files), .kts (for SKnotJob 
-files), .adt (for alphabetical DT-code files), *.dtc (for knotscape 
+files), .adc (for alphabetical DT-code files), *.dtc (for knotscape 
 files), or *.txt (for planar diagram files).
 
 You can add several such files, but at least one is needed.

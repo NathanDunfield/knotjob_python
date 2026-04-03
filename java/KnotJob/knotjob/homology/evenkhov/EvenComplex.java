@@ -536,7 +536,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         return nlist;
     }
     
-    private int combineDottings(int fdot, int sdot) {
+    protected int combineDottings(int fdot, int sdot) {
         int newdot = fdot;
         int fac = 1;
         while (sdot > 0) {
@@ -607,7 +607,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         return newInf;
     }
     
-    private ArrayList<Integer> cloneList(ArrayList<Integer> org) {
+    protected ArrayList<Integer> cloneList(ArrayList<Integer> org) {
         ArrayList<Integer> clone = new ArrayList<Integer>(org.size());
         for (int y : org) clone.add(y);
         return clone;
@@ -874,7 +874,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         ArrayList<Cobordism<R>> newMoves = new ArrayList<Cobordism<R>>(moves.size());
         for (Cobordism<R> cob : moves) {
             Cobordism<R> ncob;
-            int newdottings = getNewDottings(cob.getDottings(),bdiagram,tCache,complex.posEndpts);
+            int newdottings = getNewDottings(cob.getDottings(), bdiagram, tCache, complex.posEndpts);
             if (newdottings >=0) {
                 if (alternate) ncob = new Cobordism<R>(cob.getValue().negate(),newdottings,cob.getSurgery());
                 else ncob = new Cobordism<R>(cob.getValue(),newdottings,cob.getSurgery());
@@ -950,7 +950,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         return newCobs;
     }
     
-    private void deloopObjects(int i, ArrayList<ArrayList<Generator<R>>> tobjs, ArrayList<ArrayList<Generator<R>>> dobjs, 
+    protected void deloopObjects(int i, ArrayList<ArrayList<Generator<R>>> tobjs, ArrayList<ArrayList<Generator<R>>> dobjs, 
             EvenCache tCache, EvenCache dCache, ArrayList<Integer> ddigTrans) {
         ArrayList<Diagram> tDigs = tCache.getDiagrams();
         while (tDigs.size() > ddigTrans.size()) ddigTrans.add(-1);
@@ -970,7 +970,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
             }
             frame.setLabelRight(""+counter, 2, false);
             oObj.clearBotArrow();
-            if (i < tobjs.size()-1) tobjs.set(i+1,null);
+            //if (i < tobjs.size()-1) tobjs.set(i+1,null);
         }
         tobjs.set(i, null);
     }
@@ -994,7 +994,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         }
     }
     
-    private void noDeloop(EvenGenerator<R> oObj, int newDigNr, EvenCache tCache, EvenCache dCache, 
+    protected void noDeloop(EvenGenerator<R> oObj, int newDigNr, EvenCache tCache, EvenCache dCache, 
             ArrayList<Generator<R>> dobjs, ArrayList<Integer> ddigTrans) {
         EvenGenerator<R> nObj = new EvenGenerator<R>(newDigNr,oObj.hdeg(),oObj.qdeg());
         Cobordism<R> ccob = new Cobordism<R>(0,unit);
@@ -1205,7 +1205,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         }
     }
     
-    private int newDottings(int fdot, int sdot, EvenCache tCache) {
+    protected int newDottings(int fdot, int sdot, EvenCache tCache) {
         int newdot = fdot;
         if (sdot == 0) return newdot;
         if (tCache.getPowrs().contains(sdot)) {
@@ -1218,7 +1218,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         return newdot;
     }
     
-    private void modifyCobordisms(ArrayList<CobordInfo<R>> newCobs, EvenCache tCache, EvenCache dCache, 
+    protected void modifyCobordisms(ArrayList<CobordInfo<R>> newCobs, EvenCache tCache, EvenCache dCache, 
             ArrayList<Integer> digTrans, int stDig) {
         if (newCobs.isEmpty()) return;
         int i = 0;
@@ -1267,7 +1267,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         }
     }
     
-    private boolean dealWithCircles(CobordInfo<R> cob, int i, Diagram fDiag, Diagram sDiag, EvenCache tCache, 
+    protected boolean dealWithCircles(CobordInfo<R> cob, int i, Diagram fDiag, Diagram sDiag, EvenCache tCache, 
             boolean throwaway, ArrayList<CobordInfo<R>> newGuys, ArrayList<Integer> fDiags, int j) {
         cob.setSurgery(i,-1); // no change in diagram
         if (fDiag.circles.size() > sDiag.circles.size()) { // a circle is merged
@@ -1300,7 +1300,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         return throwaway;
     }
     
-    private boolean dotContains(int dottings, int pathid, EvenCache tCache) {
+    protected boolean dotContains(int dottings, int pathid, EvenCache tCache) {
         int pwr = tCache.getPowrs().get(tCache.getPts().indexOf(pathid));
         return dottings % (2*pwr) >= pwr;
     }
@@ -1338,7 +1338,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         return throwaway;
     }
     
-    private int pathContaining(int sid, ArrayList<Integer> pths, EvenCache tCache) {
+    protected int pathContaining(int sid, ArrayList<Integer> pths, EvenCache tCache) {
         boolean found = false;
         int i = 0;
         while (!found && i < pths.size()) {
@@ -1363,7 +1363,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         else pathIntoCircle(tCache,fDiag,sDiag,cob,newGuys,fDiags,j); // a path creates a circle
     }
     
-    private void oneCircleIntoTwo(CobordInfo<R> cob, int cid, EvenCache tCache, ArrayList<CobordInfo<R>> newGuys, 
+    protected void oneCircleIntoTwo(CobordInfo<R> cob, int cid, EvenCache tCache, ArrayList<CobordInfo<R>> newGuys, 
             ArrayList<Integer> fDiags, int sid, int j) {
         if (dotContains(cob.getDottings(),cid,tCache)) 
             cob.setDottings(cob.getDottings() + tCache.getPowrs().get(tCache.getPts().indexOf(sid)));
@@ -1381,7 +1381,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         }
     }
     
-    private CobordInfo<R> cobClone(CobordInfo<R> cob, boolean b) {
+    protected CobordInfo<R> cobClone(CobordInfo<R> cob, boolean b) {
         CobordInfo<R> clob;
         if (b) clob = new CobordInfo<R>(cob.getValue(),cob.getDottings(),cob.getSurgeries().size());
         else clob = new CobordInfo<R>(cob.getValue().negate(),cob.getDottings(),cob.getSurgeries().size());
@@ -1389,7 +1389,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         return clob;
     }
     
-    private void pathIntoCircle(int sid, Diagram fDiag, EvenCache tCache, CobordInfo<R> cob, ArrayList<CobordInfo<R>> newGuys, 
+    protected void pathIntoCircle(int sid, Diagram fDiag, EvenCache tCache, CobordInfo<R> cob, ArrayList<CobordInfo<R>> newGuys, 
             ArrayList<Integer> fDiags, int j) {
         int pid = pathContaining(sid,fDiag.paths,tCache);
         int p = tCache.getPaths().get(pid).get(0);
@@ -1409,7 +1409,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         }
     }
     
-    private void pathIntoCircle(EvenCache tCache, Diagram fDiag, Diagram sDiag, CobordInfo<R> cob, ArrayList<CobordInfo<R>> newGuys, 
+    protected void pathIntoCircle(EvenCache tCache, Diagram fDiag, Diagram sDiag, CobordInfo<R> cob, ArrayList<CobordInfo<R>> newGuys, 
             ArrayList<Integer> fDiags, int j) {
         int cid = tCache.getPaths().get(sDiag.circles.get(0)).get(0);
         int pid = pathContaining(cid,fDiag.paths,tCache);
@@ -1430,7 +1430,7 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
         }
     }
     
-    private void obtainNewCobordisms(ArrayList<CobordInfo<R>> newCobs, EvenArrow<R> nmor, EvenArrow<R> cmor,
+    protected void obtainNewCobordisms(ArrayList<CobordInfo<R>> newCobs, EvenArrow<R> nmor, EvenArrow<R> cmor,
             EvenCache tCache, EvenCache dCache) { // this  caps off the cobordisms
         ArrayList<CobordInfo<R>> relCobs = new ArrayList<CobordInfo<R>>();
         ArrayList<Integer> pEndpts = dCache.getPts();
@@ -1453,14 +1453,14 @@ public class EvenComplex<R extends Ring<R>> extends TangleComplex<R> {
                     relCobs.add(new CobordInfo<R>(cob.getValue().multiply(cb.getValue()),relDottings,cloneList(cob.getSurgeries()))); 
             }
         }
-        simplifyCobordisms(relCobs,dCache,nmor.getBotGenerator().getDiagram());
+        simplifyCobordisms(relCobs, dCache, nmor.getBotGenerator().getDiagram());
         for (CobordInfo<R> cob : relCobs) {
             long surgs = dCache.getSurgeries(cob.getSurgeries());
             nmor.addCobordism(new Cobordism<R>(cob.getValue(),cob.getDottings(),surgs));
         }
     }
     
-    private void simplifyCobordisms(ArrayList<CobordInfo<R>> newCobs, EvenCache dCache, int stDig) {
+    protected void simplifyCobordisms(ArrayList<CobordInfo<R>> newCobs, EvenCache dCache, int stDig) {
         // check for double surgeries, whether dots  can be moved to smaller points, whether some cobordisms are the same.
         checkDoubleSurgeries(newCobs,dCache,stDig);
         checkMovingDots(newCobs,dCache,stDig);

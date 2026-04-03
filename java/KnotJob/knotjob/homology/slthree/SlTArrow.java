@@ -211,8 +211,17 @@ public class SlTArrow<R extends Ring<R>> extends Arrow<R> {
     
     public void simplifyFoams(int sType, R unit) {
         int i = foams.size()-1;
+        //R mThree = unit.add(unit.add(unit)).negate();
         while (i >= 0) {
             Foam<R> foam = foams.get(i);
+            /*if (sType == 0) {//
+                foam.genusCheck(mThree);
+                if (foam.getValue().isZero()) {
+                    foams.remove(foam);
+                    i--;
+                    continue;
+                }
+            }// */
             if (foam.threeDotsOnFacet()) {
                 if (sType == 0) {
                     foams.remove(foam);

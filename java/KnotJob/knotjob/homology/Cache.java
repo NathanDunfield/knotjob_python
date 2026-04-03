@@ -23,6 +23,7 @@ package knotjob.homology;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -161,5 +162,29 @@ public class Cache {
 
     public ArrayList<Integer> getPts() {
         return dotPts;
+    }
+    
+    public int dotValue(int d) {
+        int j = 1;
+        for (Iterator<Integer> it = dotPts.iterator(); it.hasNext();) {
+            if (it.next() == d) return j;
+            j = 2*j;
+        }
+        return -1;
+    }
+    
+    public ArrayList<Integer> theDots(int u) {
+        ArrayList<Integer> thedts = new ArrayList<Integer>();
+        int i = 1;
+        int j = 0;
+        while (u != 0) {
+            if ((u & i) != 0) {
+                thedts.add(dotPts.get(j));
+                u = u - i;
+            }
+            i = i * 2;
+            j++;
+        }
+        return thedts;
     }
 }

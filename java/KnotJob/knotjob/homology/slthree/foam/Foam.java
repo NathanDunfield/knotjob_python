@@ -22,6 +22,7 @@ along with this program. If not, see <http://www.gnu.org.licenses/>.
 package knotjob.homology.slthree.foam;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import knotjob.rings.Ring;
 
 /**
@@ -93,6 +94,33 @@ public class Foam<R extends Ring<R>> {
             for (int j = 0; j < 3; j++) System.out.print(facets.indexOf(singFacets.get(i)[j])+" ");
             System.out.println();
         }
+    }
+    
+    public void genusCheck(R mthree) {
+        for (Facet fac : facets) {
+            int factor = fac.genusCheck(numberOfSingCircles(fac));
+            if (factor == 0) {
+                this.value = value.getZero();
+                return;
+            }
+            while (factor != 1) {
+                factor = factor / (-3);
+                this.value = this.value.multiply(mthree);
+            }
+        }
+    }
+    
+    private int numberOfSingCircles(Facet fac) {
+        int count = 0;
+        for (int i = 0; i < singEdges.size(); i++) {
+            Facet[] facs = singFacets.get(i);
+            SingEdge edge = singEdges.get(i);
+            if (!edge.isCircle()) continue;
+            if (facs[0] == fac) count++;
+            if (facs[1] == fac) count++;
+            if (facs[2] == fac) count++;
+        }
+        return count;
     }
     
     public boolean hasStrangeFacets() {

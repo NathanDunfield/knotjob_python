@@ -61,8 +61,8 @@ public class Options {
     private final int opSys; // Windows : 1;  Mac : 2; else : 0
     
     public Options() { 
-        float[] hsb = Color.RGBtoHSB(8*16-1, 255, 13*16+4, null);
-        versionColor = Color.getHSBColor(hsb[0], hsb[1], hsb[2]); //7FFFD4 Aquamarine
+        float[] hsb = Color.RGBtoHSB(127, 255, 0, null); // 7FFF00 Chartreuse
+        versionColor = Color.getHSBColor(hsb[0], hsb[1], hsb[2]);
         girthTot = true;
         boundGirth = true;
         girthRandom = true;
