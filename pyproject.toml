@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "knotjob"
+dynamic = ["version"]
+requires-python = ">=3.8"
+authors = [
+  {name = "Nathan M. Dunfield"},
+]
+description = "Python interface to Dirk Schütz's KnotJob"
+readme = "README.rst"
+license = "GPL-3.0"
+keywords = ["knots", "links", "Khovanov homology"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",	
+  "Intended Audience :: Science/Research",	
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Java",	
+  "Topic :: Scientific/Engineering :: Mathematics",
+]
+
+[tool.setuptools]
+package-dir = {"knotjob" = "python_src"}
+
+[tool.setuptools.dynamic]
+version = {attr = "knotjob.__version__"}
+
+[tool.setuptools.package-data]
+knotjob = ["KnotJob.jar"]
+
+[project.urls]
+Homepage = "https://github.com/NathanDunfield/knotjob_python"
+Repository = "https://github.com/NathanDunfield/knotjob_python.git"
+"Bug Tracker" = "https://github.com/NathanDunfield/knotjob_python/issues"
